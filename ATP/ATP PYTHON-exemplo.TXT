@@ -1,0 +1,85 @@
+from time import sleep
+from datetime import date
+def lin():
+    print('~' * 30)
+
+
+def obter_limite():
+    #Apresentação da Loja
+    lin()
+    print('''Está é a loja de artigos militares Dom Bosco!
+    Aqui quem fala é o Breno Guedes Pena, dono da loja. Seja bem vindo(a)!''')
+    lin()
+    #Colocar o nome do cliente
+    nome = input('Para começarmos seu cadastro, preciso do seu nome: ')
+    #Lê-se o nome do cliente somente com a primeira letra maiúscula
+    print('Olá,{}!'.format(nome.capitalize()))
+    lin()
+    #Indicação de continuação dos dados
+    print('Agora, faremos uma análise do seu cartão de crédito. Por favor, digite os dados abaixo:')
+    # Colocar o cargo que trabalha
+    cargo = input('Cargo na empresa em que trabalha atualmente: ')
+    #Colocar o salário que recebe
+    salario = float(input('Faixa salárial que recebe: R$ '))
+    #Colocar o ano em que nasceu
+    ano = int(input('Seu ano de nascimento: '))
+    lin()
+    print('{},você informou que seu cargo é {}, seu salário é R$ {:.2f} e nasceu em {}.'.format(nome.capitalize(), cargo.capitalize(), salario, ano))
+    #Idade aproximada do cliente
+    idade = int(date.today().year - ano)
+    # Limite de gasto do cliente
+    limite = float(salario*(idade/1000)+100)
+    print('Verificamos que você possui aproximadamente {} anos.'.format(idade))
+    print('')
+    #Lê-se os dados que foram colocados acima, com a primeira letra do nome em maiúsculo
+    print('{}, ao fazer sua análise de crédito, verificamos que seu limite de gasto em nossa loja é de R$ {:.2f}.'.format(nome.capitalize(),limite))
+    return limite, idade
+
+
+def verificar_produto(limite):
+    #Continuação da ATP
+    lin()
+    print('Agora, digite o seu nome do produto que deseja e o seu respectivo valor no campo abaixo: ')
+    lin()
+    #Colocar o produto desejado
+    produto = str(input('Produto: '))
+    #Colocar o valor do produto
+    valor = float(input('Valor do produto: R$ '))
+    print('Você selecionou o produto {}. Vamos verificar se você poderá comprar em nossa loja!'.format(produto.capitalize()))
+    lin()
+    print('VERIFICANDO...')
+    #Função para demorar 3 segundos para aparecer o resultado na tela
+    sleep(3)
+    lin()
+    if valor <= (limite * 0.6):
+        print('Parabéns, você está liberado(a) para comprar!')
+        lin()
+    elif valor < (limite * 0.9):
+        print('Parabéns! Além de poder comprar, você pode parcelar em até 2 vezes no cartão de crédito!')
+        lin()
+    elif valor < (limite):
+        print('Parabens! Além de poder comprar, você pode parcelar em até 3 vezes no cartão de crédito!')
+        lin()
+    else:
+        print('Que pena! Você está bloqueado de realizar esta compra!')
+        lin()
+    #Variável com o nome completo do dono da loja
+    dono = 'Breno Guedes Pena'
+    #Função split para separar os nomes e [0] para indicar primeiro nome
+    primeiro_nome = len(dono.split()[0])
+    #Variável para novo valor com desconto
+    valor_desconto = valor - (valor * primeiro_nome / 100)
+    #Utiliza-se a função len para verificar o número total de caracteres
+    if len(dono) < valor < idade:
+        print('Para ficar melhor ainda a sua compra, você ganhará {}% de desconto'.format(primeiro_nome))
+        print('Portanto, o valor novo do produto será de R$ {:.2f} reais'.format(valor_desconto))
+    else:
+        print('Infelizmente não há desconto para essa compra!')
+    return limite
+
+
+
+
+
+
+
